@@ -11,11 +11,18 @@ Given(`que eu estou na página de administrador de livros`, () => {
 });
 
 When(`eu adiciono um novo livro com os dados obrigatórios`, () => {
-   cy
+   cy.get('.btn-success').click()
+   cy.get('#book-title').type('livro teste')
+   cy.get('#book-author').type('Autor teste', {force:true})
+   cy.get('#book-category').select('Infantil', {force:true})
+   cy.get('#book-copies').type(2)
+   cy.get('#save-book-btn').click()
+   cy.wait(3000)
 });
 
 Then(`deve aparecer uma mensagem {string}`, (mensagem) => {
-    // [Then] Describes the expected outcome or result of the scenario.
+   cy.get('#alert-container').should('contain', mensagem)
+    
 });
 
 Given(`existe um livro listado no catálogo`, () => {

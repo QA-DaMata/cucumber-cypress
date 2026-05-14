@@ -5,6 +5,7 @@ Como um Adminitrator do sistema hub de Leitura
 Quero adicionar, editer e remover livros
 Para que eu possa manter o catálogo atualizado
 
+@only
 Cenário: Adicionar um novo livro
 Dado que eu estou na página de administrador de livros
 Quando eu adiciono um novo livro com os dados obrigatórios
