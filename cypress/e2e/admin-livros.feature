@@ -16,9 +16,9 @@ Dado que eu estou na página de administrador de livros
 E existe um livro listado no catálogo
 Quando eu edito os detalhes do livro
 Então deve aparecer uma mensagem de atualização "Livro atualizado com sucesso!"
-@skip
+
 Cenário: Remover um novo livro existente
 Dado que eu estou na página de administrador de livros
 E existe um livro listado no catálogo
 Quando eu removo os detalhes do livro
-Então deve aparecer uma mensagem de exclusão "Livro excluido com sucesso!"
+Então deve aparecer uma mensagem de exclusão " Livro excluído com sucesso!"
