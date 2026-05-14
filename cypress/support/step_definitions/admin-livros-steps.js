@@ -43,3 +43,26 @@ When(`eu removo os detalhes do livro`, () => {
 Then(`deve aparecer uma mensagem de exclusão {string}`, (mensagem) => {
     cy.get('#alert-container').should('contain', mensagem)
 });
+
+When("eu adiciono novos livros com os seguintes dados:", (dataTable) => {
+    const books = dataTable.hashes()
+    books.forEach(book => {
+        // FORMA MANUAL 👇
+        // cy.get('.btn-success').click()
+        // cy.get('#book-title').type(book.titulo)
+        // cy.get('#book-author').type(book.autor)
+        // cy.get('#book-category').select(book.categoria)
+        // cy.get('#book-copies').type(book.exemplares)
+        // cy.get('#save-book-btn').click()
+
+        cy.adicionarLivro(book.titulo, book.autor, book.categoria, book.exemplares)
+    })
+});
+
+When(`eu adiciono um livro com {string}, {string}, {string} e {string}`, (titulo, autor, categoria, exemplares) => {
+    cy.adicionarLivro(titulo, autor, categoria, exemplares)
+});
+
+Then("deve aparecer uma mensagem: {string}", (mensagem) => {
+    cy.get('#alert-container').should('contain', mensagem)
+});
