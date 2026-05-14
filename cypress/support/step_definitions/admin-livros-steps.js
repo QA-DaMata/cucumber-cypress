@@ -1,46 +1,52 @@
 import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor';
 
 Given(`que eu estou na página de administrador de livros`, () => {
-   cy.visit('http://localhost:3000/login.html')
-   cy.get('#email').type('admin@biblioteca.com')
-   cy.get('#password').type('admin123')
-   cy.get('#login-btn').click()
-   cy.wait(1000)
-   cy.visit('http://localhost:3000/admin-books.html')
-   cy.wait(3000)
+    cy.visit('http://localhost:3000/login.html')
+    cy.get('#email').type('admin@biblioteca.com')
+    cy.get('#password').type('admin123')
+    cy.get('#login-btn').click()
+    cy.wait(1000)
+    cy.get('.modal-footer > .btn').click()
+    cy.visit('http://localhost:3000/admin-books.html')
+    cy.wait(3000)
 });
 
 When(`eu adiciono um novo livro com os dados obrigatórios`, () => {
-   cy.get('.btn-success').click()
-   cy.get('#book-title').type('livro teste')
-   cy.get('#book-author').type('Autor teste', {force:true})
-   cy.get('#book-category').select('Infantil', {force:true})
-   cy.get('#book-copies').type(2)
-   cy.get('#save-book-btn').click()
-   cy.wait(3000)
+    cy.get('.btn-success').click()
+    cy.get('#book-title').type('livro teste')
+    cy.get('#book-author').type('Autor teste', { force: true })
+    cy.get('#book-category').select('Infantil', { force: true })
+    cy.get('#book-copies').type(2)
+    cy.get('#save-book-btn').click()
+    cy.wait(3000)
 });
 
 Then(`deve aparecer uma mensagem {string}`, (mensagem) => {
-   cy.get('#alert-container').should('contain', mensagem)
-    
+    cy.get('#alert-container').should('contain', mensagem)
 });
 
 Given(`existe um livro listado no catálogo`, () => {
-    // [Given] Sets up the initial state of the system.
+    cy.get('#search-input').type('Livro para deletar')
+    cy.wait(2000)
 });
 
 When(`eu edito os detalhes do livro`, () => {
-    // [When] Describes the action or event that triggers the scenario.
+    cy.get(':nth-child(7) > .btn-outline-primary').click()
+    cy.wait(1000)
+    cy.get('#book-category').select('Aventura', { force: true })
+    cy.get('#save-book-btn').click()
+
 });
 
 Then(`deve aparecer uma mensagem de atualização {string}`, (mensagem) => {
-    // [Then] Describes the expected outcome or result of the scenario.
+    cy.get('#alert-container').should('contain', mensagem)
 });
 
 When(`eu removo os detalhes do livro`, () => {
-    // [When] Describes the action or event that triggers the scenario.
+    cy.get(':nth-child(7) > .btn-outline-danger').click()
+    cy.get('#confirm-delete-btn').click()
 });
 
 Then(`deve aparecer uma mensagem de exclusão {string}`, (mensagem) => {
-    // [Then] Describes the expected outcome or result of the scenario.
+    cy.get('#alert-container').should('contain', mensagem)
 });
